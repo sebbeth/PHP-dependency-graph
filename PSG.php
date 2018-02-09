@@ -11,6 +11,7 @@ $application = new Application();
 
 // ... register commands
 $application->add(new GlobalGraphCommand());
+$application->add(new FileGraphCommand());
 
 $application->run();
 

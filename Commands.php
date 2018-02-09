@@ -10,14 +10,8 @@ class GlobalGraphCommand extends Command
     protected function configure()
     {
       $this
-      // the name of the command (the part after "bin/console")
       ->setName('global')
-
-      // the short description shown while running "php bin/console list"
       ->setDescription('First command')
-
-      // the full command description shown when running the command with
-      // the "--help" option
       ->setHelp('This is foo help')
   ;
     }
@@ -27,6 +21,25 @@ class GlobalGraphCommand extends Command
         // ...
         $generator = new PhpDependencyGraphGenerator();
         echo $generator->generateGlobalGraph();
+    }
+}
+
+class FileGraphCommand extends Command
+{
+    protected function configure()
+    {
+      $this
+      ->setName('file')
+      ->setDescription('Search for all files that include a given dependency')
+      ->setHelp('This is help')
+  ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        // ...
+        $generator = new PhpDependencyGraphGenerator();
+        echo $generator->fileSearchGraph();
     }
 }
 

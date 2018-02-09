@@ -6,8 +6,16 @@ class PhpDependencyGraphGenerator {
   const outputFileName = 'Report.html';
 
 
-
   function generateGlobalGraph() {
+  }
+
+  function fileSearchGraph() {
+
+
+    $input = 'dbconfig.php';
+    $this->recursiveStringSearch($input,'./test');
+
+
 
 
     $output = '
@@ -66,6 +74,22 @@ class PhpDependencyGraphGenerator {
 
 
     echo 'Results saved to file: Report.html' . PHP_EOL;
+
+  }
+
+
+  private function recursiveStringSearch($search,$rootDirectory) {
+
+
+    // https://stackoverflow.com/questions/19971428/recursively-search-all-directories-for-an-array-of-strings-in-php
+    $searchArray = array($search);
+    $pattern = implode('\|', $searchArray);
+    $command = "grep -r -l '$pattern' $rootDirectory";
+    $output = array();
+    exec($command, $output);
+    foreach ($output as $match) {
+        echo $match . PHP_EOL;
+    }
 
   }
 
