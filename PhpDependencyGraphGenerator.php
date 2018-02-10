@@ -13,8 +13,10 @@ class PhpDependencyGraphGenerator {
 
 
     $input = 'dbconfig.php';
-    $this->recursiveStringSearch($input,'./test');
+    echo 'Search for: ' . $input . PHP_EOL;
+  $resultArray = $this->recursiveStringSearch($input,'./test');
 
+    var_dump($resultArray);
 
 
 
@@ -32,7 +34,22 @@ class PhpDependencyGraphGenerator {
 
     <title>Scope Query</title>
     </head>
-    <body>
+
+    <script>
+  function test() {';
+
+
+
+   $output .= 'var jArray= JSON.parse('.json_encode($resultArray).')';
+
+    $output .= 'for(var i=0;i<6;i++){
+      alert("Hello\nHow are you?");
+  }
+}
+  </script>
+
+
+    <body onload="test()">
     <style>
     .section {
       margin:30px;
@@ -40,6 +57,7 @@ class PhpDependencyGraphGenerator {
       background-color: #e6e6e6;
     }
     </style>
+
     <div class="card section">
     <div class="card-body">
     <h2 class="text-center">Search results</h2>
@@ -82,14 +100,16 @@ class PhpDependencyGraphGenerator {
 
 
     // https://stackoverflow.com/questions/19971428/recursively-search-all-directories-for-an-array-of-strings-in-php
-    $searchArray = array($search);
+    $output = array();
+      $searchArray = array($search);
     $pattern = implode('\|', $searchArray);
     $command = "grep -r -l '$pattern' $rootDirectory";
     $output = array();
     exec($command, $output);
     foreach ($output as $match) {
-        echo $match . PHP_EOL;
+        array_push($output,$match);
     }
+    return $output;
 
   }
 
