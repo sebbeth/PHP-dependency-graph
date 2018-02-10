@@ -1,26 +1,4 @@
-<?php
 
-
-class PhpDependencyGraphGenerator {
-
-  const outputFileName = 'Report.html';
-
-
-  function generateGlobalGraph() {
-  }
-
-  function fileSearchGraph() {
-
-
-    $input = 'dbconfig.php';
-    echo 'Search for: ' . $input . PHP_EOL;
-  $resultArray = $this->recursiveStringSearch($input,'./test');
-
-    var_dump($resultArray);
-
-
-
-    $output = '
 
 
 
@@ -107,16 +85,8 @@ class PhpDependencyGraphGenerator {
       ],
       elements: {
         nodes: [
-        ';
-          $output .= '{ data: { id: "' . 'File' . '"} },';
-          $output .= '{ data: { id: "' . 'File2' . '"} },';
-
-        $output .= '],
-        edges: [';
-        $output .= '{ data: { source: "' .'File' . '", target: "' .'File2' .  '" } },';
-
-
-        $output .= ']
+        { data: { id: "File"} },{ data: { id: "File2"} },],
+        edges: [{ data: { source: "File", target: "File2" } },]
       },
     });
 
@@ -130,42 +100,4 @@ class PhpDependencyGraphGenerator {
     </body>
     </html>
 
-    ';
-
-
-
-    $myfile = fopen(self::outputFileName, "w") or die("Unable to create file");
-    fwrite($myfile, $output);
-    fclose($myfile);
-
-
-    echo 'Results saved to file: Report.html' . PHP_EOL;
-
-  }
-
-
-  private function recursiveStringSearch($search,$rootDirectory) {
-
-
-    // https://stackoverflow.com/questions/19971428/recursively-search-all-directories-for-an-array-of-strings-in-php
-    $output = array();
-      $searchArray = array($search);
-    $pattern = implode('\|', $searchArray);
-    $command = "grep -r -l '$pattern' $rootDirectory";
-    $output = array();
-    exec($command, $output);
-    foreach ($output as $match) {
-        array_push($output,$match);
-    }
-    return $output;
-
-  }
-
-
-
-
-
-}
-
-
-?>
+    
